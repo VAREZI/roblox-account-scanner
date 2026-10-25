@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Roblox Account Scanner</title>
+<style>
+:root{--bg:#090d16;--panel:#111827;--panel2:#172033;--line:#263247;--text:#f4f7fb;--muted:#9caec4;--red:#ef4444;--green:#43d39e;--blue:#69a7ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -10%,#1b3150 0,transparent 45%),var(--bg);color:var(--text);font:15px system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+main{max-width:820px;margin:auto;padding:22px 15px 50px}.brand{display:flex;align-items:center;gap:12px;margin:8px 0 25px}.logo{display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:var(--red);font-size:25px;font-weight:900;box-shadow:0 8px 30px #ef444433}.eyebrow{font-size:11px;letter-spacing:2px;color:#ff9d9d;font-weight:800}.brand h1{font-size:21px;margin:2px 0 0;letter-spacing:.3px}.hero,.panel{border:1px solid var(--line);background:linear-gradient(145deg,#151f31,#0e1522);border-radius:20px;padding:20px;margin-bottom:15px;box-shadow:0 15px 35px #0002}.hero h2{font-size:25px;line-height:1.15;margin:0 0 10px}.hero p{color:var(--muted);line-height:1.55;margin:0 0 18px}.search{display:flex;gap:9px}.search input,.rate input{min-width:0;width:100%;background:#090f1b;border:1px solid #33445c;color:white;padding:14px;border-radius:12px;font:inherit;outline:none}.search input:focus,.rate input:focus{border-color:var(--blue)}button{border:0;border-radius:12px;background:var(--red);color:white;font-weight:800;padding:0 18px;font:inherit;font-weight:800;cursor:pointer;white-space:nowrap}button:disabled{opacity:.6}.hint,.muted{color:var(--muted);font-size:12px;line-height:1.5}.hint{margin-top:10px}.status{display:none;padding:12px 14px;margin:12px 0;border-radius:12px;background:#172033;color:#c8d8ef;line-height:1.5}.status.show{display:block}.status.error{background:#381b24;color:#ffc3ca}.profile{display:flex;gap:14px;align-items:center}.avatar{width:84px;height:84px;border-radius:18px;background:#202d42;object-fit:cover}.profile h2{font-size:21px;margin:0 0 5px;overflow-wrap:anywhere}.profile p{margin:0;color:var(--muted);font-size:13px}.tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.6px;padding:5px 8px;border-radius:7px;background:#203a32;color:#8df0c6;margin-top:9px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.metric{background:var(--panel2);border:1px solid #26364d;border-radius:15px;padding:15px;min-width:0}.metric .label{font-size:12px;color:var(--muted);margin-bottom:8px}.metric .value{font-size:21px;font-weight:850;overflow-wrap:anywhere}.metric small{display:block;color:var(--muted);font-size:11px;margin-top:5px;line-height:1.4}.section-title{font-size:17px;margin:0 0 14px}.item-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.item{display:flex;gap:10px;align-items:center;padding:10px;background:#0b1220;border:1px solid #263247;border-radius:13px;min-width:0}.item img{width:54px;height:54px;border-radius:10px;object-fit:cover;background:#1b2739}.item strong{display:block;font-size:12px;line-height:1.35;overflow-wrap:anywhere}.item span{display:block;color:var(--muted);font-size:11px;margin-top:5px}.empty{padding:20px;border:1px dashed #34445b;border-radius:13px;color:var(--muted);text-align:center;line-height:1.6}.rate{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}.rate label{font-size:13px;color:var(--muted)}.rate input{margin-top:7px}.rate button{padding:13px}.footer{text-align:center;color:#718198;font-size:11px;line-height:1.6;padding:10px}.hide{display:none!important}a{color:#9bc2ff}.section-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:14px}.pill{font-size:10px;color:#ffcf87;background:#382b1b;border-radius:7px;padding:5px 7px;font-weight:800}
+@media(max-width:520px){main{padding:16px 12px 35px}.hero,.panel{padding:16px;border-radius:17px}.hero h2{font-size:22px}.search{flex-direction:column}.search button{padding:13px}.grid{gap:8px}.metric{padding:12px}.metric .value{font-size:18px}.item-list{grid-template-columns:1fr}.profile{align-items:flex-start}.avatar{width:70px;height:70px}.brand h1{font-size:18px}}
+</style>
+</head>
+<body>
+<main>
+  <header class="brand"><div class="logo">R</div><div><div class="eyebrow">PLAYER INTELLIGENCE</div><h1>ROBLOX ACCOUNT SCANNER</h1></div></header>
+  <section class="hero">
+    <h2>Scan akun Roblox kamu.</h2>
+    <p>Cari profil, lihat item avatar yang bisa diakses, dan hitung estimasi nilai koleksi. Tidak perlu memasukkan password.</p>
+    <form id="searchForm" class="search"><input id="username" autocomplete="off" maxlength="20" placeholder="Masukkan username Roblox..." aria-label="Username Roblox" required><button id="scanBtn" type="submit">SCAN ACCOUNT ↗</button></form>
+    <div class="hint">Gunakan username Roblox, bukan password atau cookie. Data inventaris bisa privat atau dibatasi oleh Roblox.</div>
+  </section>
+  <div id="status" class="status" role="status"></div>
+  <section id="profilePanel" class="panel hide">
+    <div class="profile"><img id="avatar" class="avatar" alt="Avatar Roblox"><div><h2 id="displayName">—</h2><p id="handle">@—</p><div id="profileTag" class="tag">PROFIL DITEMUKAN</div><p style="margin-top:8px"><a id="profileLink" href="#" target="_blank" rel="noopener">Buka profil Roblox ↗</a></p></div></div>
+  </section>
+  <section id="metricsPanel" class="panel hide">
+    <div class="grid">
+      <div class="metric"><div class="label">Saldo Robux</div><div class="value">Tidak tersedia</div><small>Saldo akun tidak dapat dibaca dari username publik.</small></div>
+      <div class="metric"><div class="label">Total pembelian aktual</div><div class="value">Tidak tersedia</div><small>Riwayat transaksi bukan data publik yang lengkap.</small></div>
+      <div class="metric"><div class="label">Item berbayar terverifikasi</div><div id="paidCount" class="value">—</div><small>Item yang harganya bisa diverifikasi saat scan.</small></div>
+      <div class="metric"><div class="label">Estimasi nilai koleksi (Rp)</div><div id="estimatedValue" class="value">Rp 0</div><small id="estimateNote">Hanya menghitung harga katalog yang tersedia, bukan harga jual akun.</small></div>
+    </div>
+  </section>
+  <section id="itemsPanel" class="panel hide">
+    <div class="section-head"><h3 class="section-title" style="margin:0">Accessories & item avatar</h3><span id="itemCount" class="pill">0 ITEM</span></div>
+    <div id="itemList" class="item-list"></div>
+    <p class="muted">Daftar ini mengikuti data yang tersedia dari layanan publik. Item yang tidak ditemukan bukan berarti tidak dimiliki. Harga katalog bukan bukti harga pembelian atau harga jual kembali.</p>
+  </section>
+  <section class="panel">
+    <h3 class="section-title">Kalkulator estimasi Robux → Rupiah</h3>
+    <p class="muted">Kurs ini bisa kamu ubah sendiri. Ini hanya perkiraan perhitungan, bukan kurs resmi Roblox atau harga jual akun.</p>
+    <div class="rate"><div><label for="robux">Jumlah Robux untuk dihitung</label><input id="robux" type="number" min="0" step="1" value="1000"></div><div><label for="rateInput">Rp per Robux</label><input id="rateInput" type="number" min="0" step="1" value="150"></div></div>
+    <div class="metric" style="margin-top:12px"><div class="label">Hasil estimasi</div><div id="calcResult" class="value">Rp 150.000</div></div>
+    <button id="calcBtn" type="button" style="width:100%;padding:13px;margin-top:10px">HITUNG ESTIMASI</button>
+  </section>
+  <footer class="footer">ROBLOX ACCOUNT SCANNER • Fan-made utility, not affiliated with Roblox Corporation.<br>Jangan pernah membagikan password, cookie, atau kode verifikasi akunmu.</footer>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const rupiah=n=>new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(n);
+function setStatus(msg,error=false){$('status').textContent=msg;$('status').className='status show'+(error?' error':'')}
+function clearStatus(){$('status').className='status'}
+async function getJSON(url){
+ const r=await fetch(url);
+ if(!r.ok) throw new Error('Layanan data mengembalikan HTTP '+r.status+'. Coba lagi nanti.');
+ return r.json();
+}
+const proxyGet = url => 'https://proxy.cors.dev/' + url;
+$('searchForm').addEventListener('submit',async e=>{
+ e.preventDefault();
+ const username=$('username').value.trim();
+ if(!username)return;
+ $('scanBtn').disabled=true;$('scanBtn').textContent='MEMINDAI...';
+ $('profilePanel').classList.add('hide');$('metricsPanel').classList.add('hide');$('itemsPanel').classList.add('hide');
+ setStatus('Mencari profil publik Roblox...');
+ try{
+  // GitHub Pages tidak memiliki backend. Gunakan endpoint GET dan proxy CORS untuk permintaan publik.
+  const searchUrl='https://users.roblox.com/v1/users/search?keyword='+encodeURIComponent(username)+'&limit=10';
+  const found=await getJSON(proxyGet(searchUrl));
+  const users=found.data||[];
+  const u=users.find(x=>(x.name||'').toLowerCase()===username.toLowerCase())||users[0];
+  if(!u) throw new Error('Username tidak ditemukan. Periksa ejaan atau coba username lain.');
+  const userId=u.id;
+  $('displayName').textContent=u.displayName||u.name||username;
+  $('handle').textContent='@'+(u.name||username);
+  $('profileLink').href='https://www.roblox.com/users/'+userId+'/profile';
+  $('avatar').src='https://tr.rbxcdn.com/30DAY-AvatarHeadshot-'+userId+'-150x150-Png/150/150/AvatarHeadshot/Png/noFilter';
+  try{
+   const th=await getJSON(proxyGet('https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds='+userId+'&size=150x150&format=Png&isCircular=false'));
+   if(th.data&&th.data[0]&&th.data[0].imageUrl)$('avatar').src=th.data[0].imageUrl;
+  }catch(_){ $('avatar').removeAttribute('src'); }
+  $('profilePanel').classList.remove('hide');$('metricsPanel').classList.remove('hide');$('itemsPanel').classList.remove('hide');
+  $('paidCount').textContent='Belum tersedia';
+  $('estimatedValue').textContent='Belum tersedia';
+  $('itemCount').textContent='DATA TERBATAS';
+  $('itemList').innerHTML='<div class="empty" style="grid-column:1/-1">Profil ditemukan. Daftar inventaris, harga pembelian, saldo Robux, dan riwayat transaksi tidak otomatis tersedia dari pencarian username. Fitur inventaris memerlukan sumber data tambahan yang sah. Tidak ada data contoh yang ditampilkan sebagai data nyata.</div>';
+  setStatus('Profil ditemukan. Jika avatar tidak muncul, profil tetap dapat dibuka melalui tautan Roblox. Data saldo dan pembelian pribadi tidak tersedia dari username publik.');
+ }catch(err){
+  setStatus((err&&err.message)||'Tidak dapat mengambil data. Periksa koneksi internet lalu coba lagi.',true);
+ }finally{
+  $('scanBtn').disabled=false;$('scanBtn').textContent='SCAN ACCOUNT ↗';
+ }
+});
+function calc(){const r=Math.max(0,Number($('robux').value)||0),rate=Math.max(0,Number($('rateInput').value)||0);$('calcResult').textContent=rupiah(r*rate)}
+$('calcBtn').addEventListener('click',calc);$('robux').addEventListener('input',calc);$('rateInput').addEventListener('input',calc);calc();
+</script>
+</body></html>
